@@ -1,0 +1,2 @@
+# Installation
+`doas make install`
