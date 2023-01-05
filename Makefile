@@ -1,17 +1,22 @@
-# compile main.c
-# make run to compile and run
-
 CC = gcc
+CFLAGS = -Wall -g `pkg-config --cflags gtk4` `pkg-config --cflags json-c`
+LDFLAGS = `pkg-config --libs gtk4` `pkg-config --libs json-c`
+BUILD_DIR = build
+SRC_DIR = src
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
+APP_NAME = pomodoro-gtk
 
-main: main.c
-	$(CC) -o pomodoro-cli main.c
+all: $(APP_NAME)
 
-run: main
-	./main
+$(APP_NAME): $(OBJECTS)
+	$(CC) $(LDFLAGS) $^ -o $@
 
-install: main
-	cp pomodoro-cli /usr/local/bin/pomodoro-cli
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-uninstall:
-	rm /usr/local/bin/pomodoro-cli
+clean:
+	rm -f $(BUILD_DIR)/*.o $(APP_NAME)
 
+run: $(APP_NAME)
+	./$(APP_NAME)
