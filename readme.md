@@ -1,2 +1,1 @@
-# Installation
-`doas make install`
+# WIP
