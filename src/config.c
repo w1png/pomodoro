@@ -1,15 +1,10 @@
-// the config.json file is in format:
-// pomodoro: 25
-// short break: 5
-// long break: 15
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <json-c/json.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include<string.h>
+#include <string.h>
 
 struct config {
   int pomodoro;
